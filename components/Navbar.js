@@ -1,7 +1,8 @@
 import { Tooltip } from "flowbite-react";
 import Link from "next/link";
 import { BiHomeAlt } from "react-icons/bi";
-import { BsFillLightbulbFill } from "react-icons/bs";
+import { IoPersonAddSharp } from "react-icons/io5";
+import { BsFillCalendarCheckFill, BsFillLightbulbFill } from "react-icons/bs";
 const Navbar = () => {
   return (
     <nav className="w-12 mx-auto mt-10">
@@ -25,10 +26,26 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-          <BiHomeAlt className="w-8 h-8"></BiHomeAlt>
+          <Link href={"/complete_task"}>
+            <Tooltip
+              content="Complete Task"
+              placement="right"
+              animation="duration-500"
+            >
+              <BsFillCalendarCheckFill className="w-7 h-7"></BsFillCalendarCheckFill>
+            </Tooltip>
+          </Link>
         </li>
         <li>
-          <BiHomeAlt className="w-8 h-8"></BiHomeAlt>
+          <Link href={"/login"}>
+            <Tooltip
+              content="Login"
+              placement="right"
+              animation="duration-500"
+            >
+              <IoPersonAddSharp className="w-7 h-7"></IoPersonAddSharp>
+            </Tooltip>
+          </Link>
         </li>
         <li>
           <BiHomeAlt className="w-8 h-8"></BiHomeAlt>
