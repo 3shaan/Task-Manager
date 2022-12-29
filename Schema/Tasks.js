@@ -1,4 +1,4 @@
-import { model, models, Schema } from "mongoose";
+import mongoose, { model, models, Schema } from "mongoose";
 
 const taskSchema = new Schema({
   title: {
@@ -26,4 +26,4 @@ const taskSchema = new Schema({
         versionKey: false,
     });
 
-export default models.Tasks || model('task', taskSchema);
+export default mongoose.models.Tasks || mongoose.model('tasks', taskSchema);

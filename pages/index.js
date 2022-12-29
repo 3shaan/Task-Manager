@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar'
 import ProjectBar from '../components/ProjectBar';
 import TaskBody from '../components/TaskBody';
 import "react-datepicker/dist/react-datepicker.css";
-export default function Home() {
+export default function Home({children}) {
   return (
     <>
       <Head>
@@ -13,15 +13,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <section className="grid grid-cols-8 pt-5 bg-[#ecf0f3] h-screen">
-          <div className="col-span-2 flex">
-            <Navbar></Navbar>
-            <ProjectBar></ProjectBar>
-          </div>
-          <div className="col-span-5">
-            <TaskBody></TaskBody>
-          </div>
-        </section>
+       
       </main>
     </>
   );

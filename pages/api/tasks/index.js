@@ -1,12 +1,14 @@
+
+
 import morgan from "morgan";
 import { dbConnect, runMiddleWare } from "../../../Database";
 import Tasks from "../../../Schema/Tasks";
 
 dbConnect();
 
-export default tasks = async (req, res)=>{
+const tasks = async (req, res)=>{
     const { method, body } = req;
-    const morgan = morgan('dev');
+    const morgan = morgan('dev')
     switch (method) {
         case "GET":
             try {
@@ -18,3 +20,4 @@ export default tasks = async (req, res)=>{
             }
     }
 }
+export default tasks;
