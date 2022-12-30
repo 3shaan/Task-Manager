@@ -2,11 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 import { GiAlarmClock } from "react-icons/gi";
 import { FiActivity } from "react-icons/fi";
 import { VscChecklist } from "react-icons/vsc";
+import { useContext } from "react";
+import { authContext } from "../Context/Context";
 const MainPage = () => {
+  const { user } = useContext(authContext);
   const totalTask = useQuery({
     queryKey: ["total task"],
     queryFn: async () => {
-      const res = await fetch("https://task-mangaer-server.vercel.app/tasks");
+      const res = await fetch(
+        `https://task-mangaer-server-3shaan.vercel.app/tasks?email=${user?.email}`
+      );
       const data = await res.json();
       return data;
     },
@@ -15,7 +20,7 @@ const MainPage = () => {
     queryKey: ["complete task"],
     queryFn: async () => {
       const res = await fetch(
-        "https://task-mangaer-server.vercel.app/complete"
+        `https://task-mangaer-server-3shaan.vercel.app/complete?email=${user?.email}`
       );
       const data = await res.json();
       return data;

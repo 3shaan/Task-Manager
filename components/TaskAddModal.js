@@ -8,12 +8,14 @@ import {
   TextInput,
 } from "flowbite-react";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import DatePicker from "react-datepicker";
 import { toast } from "react-hot-toast";
+import { authContext } from "../Context/Context";
 
 const TaskAddModal = ({ open, setOpen }) => {
   const [startDate, setStartDate] = useState(new Date());
+  const { user } = useContext(authContext);
   // const [dropdown, setDropdown] = useState(false);
   const [img, setImg] = useState("");
   const [loading, setLoading] = useState(false);
@@ -46,6 +48,7 @@ const TaskAddModal = ({ open, setOpen }) => {
       date,
       taskDetails,
       createTime: new Date(),
+      taskUser: user?.email
     };
     axios
       .post("https://task-mangaer-server.vercel.app/tasks", task)
@@ -54,6 +57,7 @@ const TaskAddModal = ({ open, setOpen }) => {
         if (data?.data?.acknowledged) {
           toast.success("successfully add new task");
         }
+        inputData.reset();
         setLoading(false);
         setOpen(false);
         router.push("/allTasks");

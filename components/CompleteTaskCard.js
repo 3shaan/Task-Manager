@@ -3,7 +3,8 @@ import { Tooltip } from "flowbite-react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FaRegCalendarTimes } from "react-icons/fa";
 import ReactTimeAgo from "react-time-ago";
-const CompleteTaskCard = ({ task }) => {
+import Swal from "sweetalert2";
+const CompleteTaskCard = ({ task, refetch }) => {
   const {
     _id,
     taskTitle,
@@ -40,6 +41,7 @@ const CompleteTaskCard = ({ task }) => {
           .delete(`https://task-mangaer-server.vercel.app/tasks?id=${_id}`)
           .then((data) => {
             console.log(data);
+            refetch();
           })
           .catch((err) => {
             console.log(err.message);

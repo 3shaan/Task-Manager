@@ -6,11 +6,14 @@ import TaskAddModal from "./TaskAddModal";
 import { useContext, useState } from "react";
 import { authContext } from "../Context/Context";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { toast } from "react-hot-toast";
 const TaskHeader = () => {
   const {user } = useContext(authContext);
   const [open, setOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
+
   const handleDarkMode = () => {
     if (
       localStorage.theme === "dark" ||
@@ -39,6 +42,14 @@ const TaskHeader = () => {
     }
     setIsDark(false);
   };
+  const router = useRouter();
+  const handleModal = () => {
+    if (!user?.email) {
+      toast.error('please login to add Task')
+     return  router.push('/login')
+    }
+    setOpen(true);
+  }
   return (
     <div className="flex justify-between px-2 lg:px-0 items-center">
       <div className="ml-4 hidden lg:block">
@@ -62,7 +73,7 @@ const TaskHeader = () => {
       </div>
       <div>
         <button
-          onClick={() => setOpen(true)}
+          onClick={handleModal}
           type="button"
           className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 flex items-center gap-1"
         >
@@ -84,7 +95,7 @@ const TaskHeader = () => {
           <p className="text-sm text-gray-800 dark:text-gray-100">Personal</p>
         </div>
       </div>
-      <div className="lg:hidden">
+      <div className="lg:hidden text-gray-800 dark:text-gray-100">
         <FaBars
           onClick={() => setIsMenuOpen(true)}
           className="text-3xl"
@@ -93,7 +104,7 @@ const TaskHeader = () => {
 
       <div className="text-3xl">
         {isDark ? (
-          <BsSun onClick={handleLightMode} className='text-white'></BsSun>
+          <BsSun onClick={handleLightMode} className="text-white"></BsSun>
         ) : (
           <BsFillMoonFill onClick={handleDarkMode}></BsFillMoonFill>
         )}

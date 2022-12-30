@@ -60,6 +60,7 @@ const TaskCard = ({ task, refetch }) => {
           .delete(`https://task-mangaer-server.vercel.app/tasks?id=${_id}`)
           .then((data) => {
             console.log(data);
+            refetch();
           })
           .catch((err) => {
             console.log(err.message);
@@ -103,7 +104,7 @@ const TaskCard = ({ task, refetch }) => {
         </p>
         <div>
           <p className="text-gray-800 dark:text-gray-100">
-            Task time: 2022 march 22{" "}
+            Task time: {date}
           </p>
         </div>
 

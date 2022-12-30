@@ -13,7 +13,7 @@ export const authContext = createContext();
 const auth = getAuth(app);
 const Context = ({ children }) => {
   const [user, setUser] = useState(null);
-
+  const [loading, setLoading ] = useState(true);
   const emailSignUp = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
@@ -32,10 +32,11 @@ const Context = ({ children }) => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
+        setLoading(false)
       }
     });
     return () => unSubscribe;
-  }, []);
+  }, [loading]);
 
   // update Profile 
   const updateName = (name) => {
@@ -48,7 +49,7 @@ const Context = ({ children }) => {
     )
   }
 
-  const contextValue = { user, emailSignIn, emailSignUp, logOut, updateName };
+  const contextValue = { user, emailSignIn, emailSignUp, logOut, updateName , loading};
   return (
     <authContext.Provider value={contextValue}>{children}</authContext.Provider>
   );
