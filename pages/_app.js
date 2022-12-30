@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }) {
   return (
     <Context>
       <QueryClientProvider client={queryClient}>
-        <section className="grid grid-cols-8 pt-5 bg-[#ecf0f3] h-screen">
+        <section className="grid lg:grid-cols-8 pt-5 bg-[#ecf0f3] h-screen dark:bg-gray-900">
           <div className="col-span-2 hidden lg:flex ">
             <Navbar></Navbar>
             <ProjectBar></ProjectBar>

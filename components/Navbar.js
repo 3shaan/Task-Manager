@@ -21,7 +21,7 @@ const Navbar = () => {
         >
           <Link href={"/"}>
             <Tooltip content="Home" placement="right" animation="duration-500">
-              <BiHomeAlt className="w-8 h-8"></BiHomeAlt>
+              <BiHomeAlt className="w-8 h-8 text-gray-800 dark:text-gray-100"></BiHomeAlt>
             </Tooltip>
           </Link>
         </li>
@@ -32,11 +32,11 @@ const Navbar = () => {
         >
           <Link href={"/allTasks"}>
             <Tooltip
-              content="All Task"
+              content="My Task"
               placement="right"
               animation="duration-500"
             >
-              <BsFillLightbulbFill className="w-8 h-8"></BsFillLightbulbFill>
+              <BsFillLightbulbFill className="w-8 h-8 text-gray-800 dark:text-gray-100"></BsFillLightbulbFill>
             </Tooltip>
           </Link>
         </li>
@@ -53,7 +53,7 @@ const Navbar = () => {
               placement="right"
               animation="duration-500"
             >
-              <BsFillCalendarCheckFill className="w-7 h-7"></BsFillCalendarCheckFill>
+              <BsFillCalendarCheckFill className="w-7 h-7 text-gray-800 dark:text-gray-100"></BsFillCalendarCheckFill>
             </Tooltip>
           </Link>
         </li>
@@ -66,7 +66,7 @@ const Navbar = () => {
                   placement="right"
                   animation="duration-500"
                 >
-                  <FiLogOut className="w-7 h-7"></FiLogOut>
+                  <FiLogOut className="w-7 h-7 text-gray-800 dark:text-gray-100"></FiLogOut>
                 </Tooltip>
               </div>
             </li>
@@ -84,7 +84,7 @@ const Navbar = () => {
                   placement="right"
                   animation="duration-500"
                 >
-                  <IoPersonAddSharp className="w-7 h-7"></IoPersonAddSharp>
+                  <IoPersonAddSharp className="w-7 h-7 text-gray-800 dark:text-gray-100"></IoPersonAddSharp>
                 </Tooltip>
               </Link>
             </li>
@@ -101,7 +101,7 @@ const Navbar = () => {
                   placement="right"
                   animation="duration-500"
                 >
-                  <IoPersonAddSharp className="w-7 h-7"></IoPersonAddSharp>
+                  <IoPersonAddSharp className="w-7 h-7 text-gray-800 dark:text-gray-100"></IoPersonAddSharp>
                 </Tooltip>
               </Link>
             </li>

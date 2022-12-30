@@ -8,40 +8,12 @@ import Link from "next/link";
 const ProjectBar = () => {
   return (
     <div>
-      {/* <div className="w-fit h-screen">
-        <Sidebar aria-label="Sidebar with multi-level dropdown example">
-          <Sidebar.Items>
-            <Sidebar.ItemGroup>
-              <Sidebar.Item href="#">
-                <div className="flex justify-between items-center">
-                  <span className="text-2xl font-semibold">Project</span>
-                  <div>
-                    <button className="text-primary flex items-center gap-1">
-                      <AiOutlinePlus></AiOutlinePlus> Add New
-                    </button>
-                  </div>
-                </div>
-              </Sidebar.Item>
-              <Sidebar.Item icon={BsPersonFill}>
-                <Link href="/project/Personal">Personal</Link>
-              </Sidebar.Item>
-
-              <Sidebar.Item icon={MdFamilyRestroom}>
-                <Link href="/project/Family">Family</Link>
-              </Sidebar.Item>
-
-              <Sidebar.Item icon={ImOffice}>
-                <Link href="/project/Office">Office</Link>
-              </Sidebar.Item>
-            </Sidebar.ItemGroup>
-          </Sidebar.Items>
-        </Sidebar>
-      </div> */}
-
       <aside class="w-64" aria-label="Sidebar">
         <div class="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800">
           <div className="flex justify-between items-center">
-            <span className="text-2xl font-semibold">Project</span>
+            <span className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
+              Project
+            </span>
             <div>
               <button className="text-primary flex items-center gap-1">
                 <AiOutlinePlus></AiOutlinePlus> Add New

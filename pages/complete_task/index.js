@@ -23,7 +23,7 @@ const Index = () => {
   }
   return (
     <section>
-      <div className="grid grid-cols-1 md:grid-cols-2 px-5 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 px-5 gap-5 mt-10">
         {tasks.map((task) => (
           <CompleteTaskCard key={task._id} task={task}></CompleteTaskCard>
         ))}

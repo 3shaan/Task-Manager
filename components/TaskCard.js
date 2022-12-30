@@ -1,12 +1,14 @@
 import axios from "axios";
 import { Tooltip } from "flowbite-react";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsFillCalendarCheckFill } from "react-icons/bs";
 import { TbDetails } from "react-icons/tb";
 import ReactTimeAgo from "react-time-ago";
 import Swal from "sweetalert2";
+import { authContext } from "../Context/Context";
 import TaskDetailsModal from "./TaskDetailsModal";
 import TaskEditModal from "./TaskEditModal";
 const TaskCard = ({ task, refetch }) => {
@@ -22,7 +24,8 @@ const TaskCard = ({ task, refetch }) => {
   } = task;
   console.log(date);
   const [open, setOpen] = useState(false);
-
+  const { user } = useContext(authContext);
+  const router = useRouter();
   const handleComplete = () => {
     axios
       .put(`https://task-mangaer-server.vercel.app/tasks?id=${_id}`)
@@ -74,10 +77,17 @@ const TaskCard = ({ task, refetch }) => {
     setModalOpen(true);
   };
 
+  const openModal = () => {
+    if (!user?.uid) {
+      toast.error("please login");
+      return router.push("/login");
+    }
+    setOpen(true);
+  }
   return (
     <div className={`${complete ? "hidden" : ""}`}>
       <div className="block max-w-sm h-56 p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center text-gray-800 dark:text-gray-100">
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             {taskTitle}
           </h5>
@@ -92,13 +102,15 @@ const TaskCard = ({ task, refetch }) => {
             : `${taskDetails?.slice(0, 65)}...`}
         </p>
         <div>
-          <p className="text">Task time: 2022 march 22 </p>
+          <p className="text-gray-800 dark:text-gray-100">
+            Task time: 2022 march 22{" "}
+          </p>
         </div>
 
         <div className="flex mt-3 gap-4 justify-between">
           <Tooltip content="Details" placement="top" animation="duration-500">
             <button
-              onClick={() => setOpen(true)}
+              onClick={openModal}
               className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg px-3 py-1 text-2xl text-center"
             >
               <TbDetails></TbDetails>

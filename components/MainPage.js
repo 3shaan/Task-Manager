@@ -37,7 +37,7 @@ const MainPage = () => {
               {totalTask?.data?.length}
             </p>
             <hr />
-            <p className="text-right text-sm">
+            <p className="text-right text-sm text-gray-800 dark:text-gray-100">
               <span className="text-pink-600 font-semibold">+50%</span> then
               last week
             </p>
@@ -55,7 +55,7 @@ const MainPage = () => {
               {runningTask}
             </p>
             <hr />
-            <p className="text-right text-sm">
+            <p className="text-right text-sm text-gray-800 dark:text-gray-100">
               <span className="text-blue-600 font-semibold">+50%</span> then
               last week
             </p>
@@ -73,7 +73,7 @@ const MainPage = () => {
               {completeTask?.data?.length}
             </p>
             <hr />
-            <p className="text-right text-sm">
+            <p className="text-right text-sm text-gray-800 dark:text-gray-100">
               <span className="text-cyan-600 font-semibold">+50%</span> then
               last week
             </p>
