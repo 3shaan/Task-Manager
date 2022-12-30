@@ -4,14 +4,10 @@ import { useState } from "react";
 import { BiEdit } from "react-icons/bi";
 import TaskEditModal from "./TaskEditModal";
 
-const TaskDetailsModal = ({ task, open, setOpen , refetch}) => {
+const TaskDetailsModal = ({ task, open, setOpen, refetch, handleEditTask }) => {
   const { _id, taskTitle, taskDetails, projectName, image, date, createTime } =
     task;
-  const [modalOpen, setModalOpen] = useState();
-  const handleEditTask = () => {
-    setOpen(false);
-    setModalOpen(true);
-  };
+
   return (
     <div>
       <Modal show={open} size="4xl" popup={true} onClose={() => setOpen(false)}>
@@ -51,7 +47,6 @@ const TaskDetailsModal = ({ task, open, setOpen , refetch}) => {
           </div>
         </Modal.Body>
       </Modal>
-      <TaskEditModal task={task} modalOpen={modalOpen} setModalOpen={setModalOpen} refetch={refetch}></TaskEditModal>
     </div>
   );
 };

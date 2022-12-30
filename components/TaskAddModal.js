@@ -48,7 +48,7 @@ const TaskAddModal = ({ open, setOpen }) => {
       createTime: new Date(),
     };
     axios
-      .post("http://localhost:5000/tasks", task)
+      .post("https://task-mangaer-server.vercel.app/tasks", task)
       .then((data) => {
         console.log(data);
         if (data?.data?.acknowledged) {

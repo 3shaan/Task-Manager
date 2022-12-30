@@ -8,6 +8,7 @@ import { TbDetails } from "react-icons/tb";
 import ReactTimeAgo from "react-time-ago";
 import Swal from "sweetalert2";
 import TaskDetailsModal from "./TaskDetailsModal";
+import TaskEditModal from "./TaskEditModal";
 const TaskCard = ({ task, refetch }) => {
   const {
     _id,
@@ -24,7 +25,7 @@ const TaskCard = ({ task, refetch }) => {
 
   const handleComplete = () => {
     axios
-      .put(`http://localhost:5000/tasks?id=${_id}`)
+      .put(`https://task-mangaer-server.vercel.app/tasks?id=${_id}`)
       // .then(res=>res.json())
       .then((data) => {
         console.log(data);
@@ -53,7 +54,7 @@ const TaskCard = ({ task, refetch }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:5000/tasks?id=${_id}`)
+          .delete(`https://task-mangaer-server.vercel.app/tasks?id=${_id}`)
           .then((data) => {
             console.log(data);
           })
@@ -65,6 +66,14 @@ const TaskCard = ({ task, refetch }) => {
       }
     });
   };
+
+  // edit modal work
+  const [modalOpen, setModalOpen] = useState();
+  const handleEditTask = () => {
+    setOpen(false);
+    setModalOpen(true);
+  };
+
   return (
     <div className={`${complete ? "hidden" : ""}`}>
       <div className="block max-w-sm h-56 p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
@@ -118,7 +127,14 @@ const TaskCard = ({ task, refetch }) => {
         setOpen={setOpen}
         task={task}
         refetch={refetch}
+        handleEditTask={handleEditTask}
       ></TaskDetailsModal>
+      <TaskEditModal
+        task={task}
+        modalOpen={modalOpen}
+        setModalOpen={setModalOpen}
+        refetch={refetch}
+      ></TaskEditModal>
     </div>
   );
 };

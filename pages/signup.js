@@ -4,7 +4,7 @@ import { authContext } from "../Context/Context";
 
 
 const Signup = () => {
-    const { emailSignUp, user } = useContext(authContext);
+    const { emailSignUp, user, updateName } = useContext(authContext);
     console.log(user)
     const [loading, setLoading] = useState(false);
     const handleSubmit = (event) => {
@@ -18,8 +18,10 @@ const Signup = () => {
         emailSignUp(email, password)
             .then(res => {
                 const user = res?.user;
-                console.log(user)
+              console.log(user);
+               updateName(name);
                 setLoading(false);
+              
             })
             .catch(err => {
                 console.log(err)

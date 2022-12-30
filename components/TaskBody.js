@@ -3,7 +3,7 @@ import TaskHeader from "./TaskHeader";
 const TaskBody = () => {
     return (
         <div>
-            <TaskHeader></TaskHeader>
+            {/* <TaskHeader></TaskHeader> */}
         </div>
     );
 };

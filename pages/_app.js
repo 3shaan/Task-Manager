@@ -11,6 +11,8 @@ import {
   QueryClientProvider,
   useQuery,
 } from "@tanstack/react-query";
+import { Toaster } from 'react-hot-toast';
+import TaskHeader from '../components/TaskHeader';
 
 export default function App({ Component, pageProps }) {
   TimeAgo.addDefaultLocale(en);
@@ -19,15 +21,16 @@ export default function App({ Component, pageProps }) {
     <Context>
       <QueryClientProvider client={queryClient}>
         <section className="grid grid-cols-8 pt-5 bg-[#ecf0f3] h-screen">
-          <div className="col-span-2 flex">
+          <div className="col-span-2 hidden lg:flex ">
             <Navbar></Navbar>
             <ProjectBar></ProjectBar>
           </div>
           <div className="col-span-5">
-            <TaskBody></TaskBody>
+            <TaskHeader className="hidden"></TaskHeader>
             <Component {...pageProps} />
           </div>
         </section>
+        <Toaster />
       </QueryClientProvider>
     </Context>
   );

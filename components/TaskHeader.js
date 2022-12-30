@@ -2,8 +2,10 @@ import Image from "next/image";
 import { FaSearchengin } from "react-icons/fa";
 import { AiOutlinePlus } from "react-icons/ai";
 import TaskAddModal from "./TaskAddModal";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { authContext } from "../Context/Context";
 const TaskHeader = () => {
+  const {user } = useContext(authContext);
   const [open, setOpen] = useState(false);
   return (
     <div className="flex justify-between">
@@ -35,7 +37,7 @@ const TaskHeader = () => {
           <AiOutlinePlus className="text-xl"></AiOutlinePlus> New Task
         </button>
       </div>
-      <div className="flex gap-4">
+      {/* <div className="flex gap-4">
         <Image
           src="https://i.ibb.co/5GCh95n/houyaka.png"
           alt=""
@@ -43,8 +45,11 @@ const TaskHeader = () => {
           height={40}
           className="rounded-lg"
         />
-        <p>Benjamin</p>
-      </div>
+        <div>
+          <p className="text-blue-700 font-semibold">{user?.displayName || "New User"}</p>
+          <p className="text-sm">Personal</p>
+        </div>
+      </div> */}
       <TaskAddModal open={open} setOpen={setOpen}></TaskAddModal>
     </div>
   );

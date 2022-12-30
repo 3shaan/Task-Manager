@@ -4,61 +4,68 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import { toast } from "react-hot-toast";
 
-const TaskEditModal = ({ task, modalOpen, setModalOpen , refetch }) => {
+const TaskEditModal = ({ task, modalOpen, setModalOpen, refetch }) => {
   const [loading, setLoading] = useState(false);
-const { _id, taskTitle, taskDetails, projectName, image:taskImg, date, createTime } =
-        task;
+  const {
+    _id,
+    taskTitle,
+    taskDetails,
+    projectName,
+    image: taskImg,
+    date,
+    createTime,
+  } = task;
   const [startDate, setStartDate] = useState(Date.parse(date));
   const [img, setImg] = useState("");
-   const handleSubmit = async (event) => {
-     event.preventDefault();
-     setLoading(true);
-     const inputData = event.target;
-     const title = inputData.text.value;
-     const projectName = inputData.project.value;
-     const images = img?.target?.files[0];
-     const date = inputData.date.value;
-     const taskDetails = inputData.textArea.value;
-     const formData = new FormData();
-     formData.append("image", images);
-     const uploadImg = await fetch(
-       "https://api.imgbb.com/1/upload?key=7393967092b740dbb7156b576663d2f7",
-       {
-         method: "POST",
-         body: formData,
-       }
-     );
-     const imageJson = await uploadImg.json();
-     const image = imageJson?.data?.url;
-     // console.log(image.data?.url)
-     const task = {
-       taskId: _id,
-       taskTitle: title,
-       projectName,
-       image: image ? image : taskImg,
-       date,
-       taskDetails,
-     };
-     axios
-       .put("http://localhost:5000/task", task)
-       .then((data) => {
-         console.log(data);
-          setLoading(false);
-          modalOpen(false);
-          refetch();
-         if (data?.data?.acknowledged) {
-           console.log("successfully edited task");
-           toast.success("successfully edited task");
-         }
-        
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    const inputData = event.target;
+    const title = inputData.text.value;
+    const projectName = inputData.project.value;
+    const images = img?.target?.files[0];
+    const date = inputData.date.value;
+    const taskDetails = inputData.textArea.value;
+    const formData = new FormData();
+    formData.append("image", images);
+    const uploadImg = await fetch(
+      "https://api.imgbb.com/1/upload?key=7393967092b740dbb7156b576663d2f7",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+    const imageJson = await uploadImg.json();
+    const image = imageJson?.data?.url;
+    // console.log(image.data?.url)
+    const task = {
+      taskId: _id,
+      taskTitle: title,
+      projectName,
+      image: image ? image : taskImg,
+      date,
+      taskDetails,
+    };
+    axios
+      .put("https://task-mangaer-server.vercel.app/task", task)
+      .then((data) => {
+        console.log(data);
+        setLoading(false);
+        setModalOpen(false);
+        refetch();
+        if (data?.data?.acknowledged) {
+          console.log("successfully edited task");
+          toast.success("successfully edited task");
+        }
+
         //  router.push("/allTasks");
-       })
-       .catch((err) => {
-         console.log(err.message);
-         setLoading(false);
-       });
-     // console.log(task)
-   };
+      })
+      .catch((err) => {
+        console.log(err.message);
+        setLoading(false);
+      });
+    // console.log(task)
+  };
   return (
     <div>
       <Modal
