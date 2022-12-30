@@ -1,11 +1,17 @@
 import { Checkbox, Label, Modal, TextInput, Tooltip } from "flowbite-react";
 import Image from "next/image";
+import { useState } from "react";
 import { BiEdit } from "react-icons/bi";
+import TaskEditModal from "./TaskEditModal";
 
-const TaskDetailsModal = ({ task, open, setOpen }) => {
+const TaskDetailsModal = ({ task, open, setOpen , refetch}) => {
   const { _id, taskTitle, taskDetails, projectName, image, date, createTime } =
     task;
-
+  const [modalOpen, setModalOpen] = useState();
+  const handleEditTask = () => {
+    setOpen(false);
+    setModalOpen(true);
+  };
   return (
     <div>
       <Modal show={open} size="4xl" popup={true} onClose={() => setOpen(false)}>
@@ -22,7 +28,7 @@ const TaskDetailsModal = ({ task, open, setOpen }) => {
                 animation="duration-500"
               >
                 <button
-                  onClick={() => setOpen(true)}
+                  onClick={handleEditTask}
                   className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg px-3 py-1 text-2xl text-center"
                 >
                   <BiEdit></BiEdit>
@@ -45,6 +51,7 @@ const TaskDetailsModal = ({ task, open, setOpen }) => {
           </div>
         </Modal.Body>
       </Modal>
+      <TaskEditModal task={task} modalOpen={modalOpen} setModalOpen={setModalOpen} refetch={refetch}></TaskEditModal>
     </div>
   );
 };

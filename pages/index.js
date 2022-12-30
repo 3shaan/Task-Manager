@@ -2,7 +2,6 @@ import Head from 'next/head'
 import Navbar from '../components/Navbar'
 import ProjectBar from '../components/ProjectBar';
 import TaskBody from '../components/TaskBody';
-import "react-datepicker/dist/react-datepicker.css";
 export default function Home({children}) {
   return (
     <>

@@ -8,54 +8,63 @@ import { TbDetails } from "react-icons/tb";
 import ReactTimeAgo from "react-time-ago";
 import Swal from "sweetalert2";
 import TaskDetailsModal from "./TaskDetailsModal";
-const TaskCard = ({ task }) => {
-    const {_id, taskTitle, taskDetails, projectName, image, date, createTime, complete } = task;
-    console.log(date)
-    const [open, setOpen] = useState(false);
-    
-    const handleComplete = () => {
+const TaskCard = ({ task, refetch }) => {
+  const {
+    _id,
+    taskTitle,
+    taskDetails,
+    projectName,
+    image,
+    date,
+    createTime,
+    complete,
+  } = task;
+  console.log(date);
+  const [open, setOpen] = useState(false);
+
+  const handleComplete = () => {
+    axios
+      .put(`http://localhost:5000/tasks?id=${_id}`)
+      // .then(res=>res.json())
+      .then((data) => {
+        console.log(data);
+        refetch();
+        toast.success("Task complete");
+        if (data?.data?.acknowledged) {
+          toast.success("Task complete");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // delete task
+
+  const handleDelete = () => {
+    Swal.fire({
+      title: "Are you sure to Delete this Task?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
         axios
-          .put(`http://localhost:5000/tasks?id=${_id}`)
-          // .then(res=>res.json())
+          .delete(`http://localhost:5000/tasks?id=${_id}`)
           .then((data) => {
             console.log(data);
-            toast.success("Task complete");
-            if (data?.data?.acknowledged) {
-              toast.success("Task complete");
-            }
           })
           .catch((err) => {
-            console.log(err);
+            console.log(err.message);
           });
-    }
-
-    // delete task
-
-    const handleDelete = () => {
-        Swal.fire({
-          title: "Are you sure to Delete this Task?",
-          text: "You won't be able to revert this!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, delete it!",
-        }).then((result) => {
-            if (result.isConfirmed) {
-              axios
-                .delete(`http://localhost:5000/tasks?id=${_id}`)
-                .then((data) => {
-                  console.log(data);
-                })
-                .catch((err) => {
-                  console.log(err.message);
-                });
-              Swal.fire("Deleted!", "Your Task has been deleted.", "success");
-              
-          }
-        });
-      
-    };
+        Swal.fire("Deleted!", "Your Task has been deleted.", "success");
+        refetch();
+      }
+    });
+  };
   return (
     <div className={`${complete ? "hidden" : ""}`}>
       <div className="block max-w-sm h-56 p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
@@ -108,6 +117,7 @@ const TaskCard = ({ task }) => {
         open={open}
         setOpen={setOpen}
         task={task}
+        refetch={refetch}
       ></TaskDetailsModal>
     </div>
   );

@@ -1,6 +1,6 @@
 import CompleteTaskCard from "../../components/CompleteTaskCard";
 
-const index = ({tasks}) => {
+const index = ({ tasks }) => {
     return (
       <section>
         <div className="grid grid-cols-1 md:grid-cols-2 px-5 gap-5">
