@@ -18,6 +18,6 @@ module.exports = {
   },
   env: {
     MONGODB_URI:
-      "mongodb+srv://task-manager:gAk3VgyZjTBjCMYh@cluster0.00o20sl.mongodb.net/?retryWrites=true&w=majority",
+      "mongodb+srv://task-manager:gAk3VgyZjTBjCMYh@cluster0.00o20sl.mongodb.net/Task_manager/?retryWrites=true&w=majority",
   },
 };

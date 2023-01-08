@@ -1,29 +1,40 @@
 import mongoose, { model, models, Schema } from "mongoose";
 
-const taskSchema = new Schema({
-  title: {
-    type: String,
-    require: true,
-    trim: true,
+const taskSchema = new Schema(
+  {
+    taskTitle: {
+      type: String,
+      require: true,
+      trim: true,
+    },
+    projectName: {
+      type: String,
+      require: true,
+    },
+    image: {
+      type: String,
+    },
+    date: {
+      type: Date,
+    },
+    taskDetails: {
+      type: String,
+      trim: true,
+    },
+    createTime: {
+      type: Date,
+    },
+    taskUser: {
+      type: String,
+    },
+    complete: {
+      type: Boolean
+    },
   },
-  project: {
-    type: String,
-    require: true,
-  },
-  images: {
-    type: String,
-  },
-  date: {
-    type: String,
-  },
-  Desc: {
-    type: String,
-    trim: true,
-  },
-},
-    {
-        timestamps: true,
-        versionKey: false,
-    });
+  {
+    timestamps: true,
+    versionKey: false,
+  }
+);
 
-export default mongoose.models.Tasks || mongoose.model('tasks', taskSchema);
+export default mongoose.models.Tasks || mongoose.model('Tasks', taskSchema);

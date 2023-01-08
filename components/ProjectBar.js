@@ -5,7 +5,29 @@ import { BsPersonFill } from "react-icons/bs";
 import { MdFamilyRestroom } from "react-icons/md";
 import { ImOffice } from "react-icons/im";
 import Link from "next/link";
+import { useContext, useState } from "react";
+import ProjectAddModal from "./ProjectAddModal";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { authContext } from "../Context/Context";
 const ProjectBar = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const { user } = useContext(authContext);
+  const { data:project , isLoading, isError, error} = useQuery({
+    queryKey: ['project single'],
+    queryFn: async () => {
+       const res = await fetch(
+         `http://localhost:3000/api/projects?email=eshan@eshan.com`
+       );
+      const data = await res.json();
+      return data;
+    }
+  })
+  console.log(project?.map(pro=>console.log(pro.ProjectName)))
+
+  if (isLoading) {
+    return <div>loading....</div>
+  }
   return (
     <div>
       <aside class="w-64" aria-label="Sidebar">
@@ -15,7 +37,10 @@ const ProjectBar = () => {
               Project
             </span>
             <div>
-              <button className="text-primary flex items-center gap-1">
+              <button
+                onClick={() => setModalOpen(true)}
+                className="text-primary flex items-center gap-1"
+              >
                 <AiOutlinePlus></AiOutlinePlus> Add New
               </button>
             </div>
@@ -48,9 +73,27 @@ const ProjectBar = () => {
                 <span class="ml-3">office</span>
               </Link>
             </li>
+            { project && 
+              project.map(pro => { 
+                <li key={pro._id}>
+                  <Link
+                    href={`/project/${pro?.ProjectName}`}
+                    class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                  >
+                    {/* <ImOffice className="text-xl"></ImOffice> */}
+                    <span class="ml-3">{pro?.ProjectName}</span>
+                    df
+                  </Link>
+                </li>;
+              })
+            }
           </ul>
         </div>
       </aside>
+      <ProjectAddModal
+        modalOpen={modalOpen}
+        setModalOpen={setModalOpen}
+      ></ProjectAddModal>
     </div>
   );
 };

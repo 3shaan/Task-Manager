@@ -28,14 +28,14 @@ const TaskCard = ({ task, refetch }) => {
   const router = useRouter();
   const handleComplete = () => {
     axios
-      .put(`https://task-mangaer-server.vercel.app/tasks?id=${_id}`)
+      .put(`http://localhost:3000/api/tasks?id=${_id}`)
       // .then(res=>res.json())
       .then((data) => {
         console.log(data);
         refetch();
-        toast.success("Task complete");
-        if (data?.data?.acknowledged) {
-          toast.success("Task complete");
+        // toast.success("Task complete");
+        if (data?.status === 200) {
+          toast.success(data?.data?.msg);
         }
       })
       .catch((err) => {
@@ -57,9 +57,9 @@ const TaskCard = ({ task, refetch }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`https://task-mangaer-server.vercel.app/tasks?id=${_id}`)
+          .delete(`http://localhost:3000/api/tasks?id=${_id}`)
           .then((data) => {
-            console.log(data);
+            console.log(data?.data?.msg);
             refetch();
           })
           .catch((err) => {

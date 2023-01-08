@@ -9,6 +9,7 @@ export async function dbConnect() {
   const db = await connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    dbName: "Task_manager",
   });
     connecting.isConnect = db.connections[0].readyState;
     console.log(db.connection.db.databaseName);

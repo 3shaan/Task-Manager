@@ -10,7 +10,7 @@ const MainPage = () => {
     queryKey: ["total task"],
     queryFn: async () => {
       const res = await fetch(
-        `https://task-mangaer-server-3shaan.vercel.app/tasks?email=${user?.email}`
+        `http://localhost:3000/api/tasks?email=${user?.email}`
       );
       const data = await res.json();
       return data;

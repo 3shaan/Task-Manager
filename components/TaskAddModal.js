@@ -51,16 +51,17 @@ const TaskAddModal = ({ open, setOpen }) => {
       taskUser: user?.email
     };
     axios
-      .post("https://task-mangaer-server.vercel.app/tasks", task)
+      .post("http://localhost:3000/api/tasks", task)
       .then((data) => {
         console.log(data);
-        if (data?.data?.acknowledged) {
+        if (data?.status === 200) {
           toast.success("successfully add new task");
+             inputData.reset();
+             setLoading(false);
+             setOpen(false);
+             router.push("/allTasks");
         }
-        inputData.reset();
-        setLoading(false);
-        setOpen(false);
-        router.push("/allTasks");
+     
       })
       .catch((err) => {
         console.log(err.message);

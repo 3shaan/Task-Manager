@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Tooltip } from "flowbite-react";
+import { toast } from "react-hot-toast";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FaRegCalendarTimes } from "react-icons/fa";
 import ReactTimeAgo from "react-time-ago";
@@ -17,9 +18,13 @@ const CompleteTaskCard = ({ task, refetch }) => {
   } = task;
   const handleNotComplete = () => {
     axios
-      .patch(`https://task-mangaer-server.vercel.app/complete?id=${_id}`)
+      .put(`http://localhost:3000/api/complete?id=${_id}`)
       .then((data) => {
         console.log(data);
+        if (data.status === 200) {
+          toast.success(data?.data?.msg)
+          refetch();
+        }
       })
       .catch((err) => {
         console.log(err.message);
@@ -38,7 +43,7 @@ const CompleteTaskCard = ({ task, refetch }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`https://task-mangaer-server.vercel.app/tasks?id=${_id}`)
+          .delete(`http://localhost:3000/api/tasks?id=${_id}`)
           .then((data) => {
             console.log(data);
             refetch();
@@ -52,7 +57,7 @@ const CompleteTaskCard = ({ task, refetch }) => {
   };
   return (
     <div>
-      <div className="block max-w-sm h-56 p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+      <div className="block max-w-sm h-56 p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 text-gray-900 dark:text-white">
         <div className="flex justify-between items-center">
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             {taskTitle}
@@ -62,7 +67,7 @@ const CompleteTaskCard = ({ task, refetch }) => {
           )}
         </div>
 
-        <p className="text-xl text-gray-700 dark:text-gray-400">
+        <p className="text-xl ">
           {taskDetails?.length < 65
             ? taskDetails
             : `${taskDetails?.slice(0, 65)}...`}

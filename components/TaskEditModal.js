@@ -47,15 +47,15 @@ const TaskEditModal = ({ task, modalOpen, setModalOpen, refetch }) => {
       taskDetails,
     };
     axios
-      .put("https://task-mangaer-server.vercel.app/task", task)
+      .put("http://localhost:3000/api/task", task)
       .then((data) => {
-        console.log(data);
-        setLoading(false);
-        setModalOpen(false);
-        refetch();
-        if (data?.data?.acknowledged) {
-          console.log("successfully edited task");
-          toast.success("successfully edited task");
+        
+        if (data?.status === 200) {
+          console.log(data);
+          setLoading(false);
+          setModalOpen(false);
+          refetch();
+          toast.success(data?.data?.msg);
         }
 
         //  router.push("/allTasks");

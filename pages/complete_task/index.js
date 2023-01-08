@@ -16,7 +16,7 @@ const Index = () => {
     queryKey: ["all task"],
     queryFn: async () => {
       const res = await fetch(
-        `https://task-mangaer-server-3shaan.vercel.app/complete?email=${user?.email}`
+        `http://localhost:3000/api/complete?email=${user?.email}`
       );
       const data = await res.json();
       return data;
