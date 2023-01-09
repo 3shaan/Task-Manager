@@ -15,11 +15,11 @@ const Index = () => {
   } = useQuery({
     queryKey: ["all task"],
     queryFn: async () => {
-      const res = await fetch(
-        `http://localhost:3000/api/tasks?email=${user?.email}`
-      );
-      const data = await res.json();
-      return data;
+      
+        const res = await fetch(`/api/tasks?email=${user?.email}`);
+        const data = await res.json();
+        return data;
+      
     },
   });
   if (isLoading) {
@@ -31,16 +31,19 @@ const Index = () => {
   }
 
   console.log(tasks);
+  if (user) {
+    refetch();
+  }
   return (
     <div className="mt-10">
       <div>
-        {tasks.length === 0 ? (
+        {tasks?.length === 0 ? (
           <div className="text-center mt-20 text-2xl">
             <p>You Have No Running Task</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 px-5 gap-5">
-            {tasks.map((task) => (
+            {tasks?.map((task) => (
               <TaskCard key={task._id} task={task} refetch={refetch}></TaskCard>
             ))}
           </div>

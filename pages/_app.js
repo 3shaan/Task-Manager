@@ -14,6 +14,8 @@ import {
 import { Toaster } from 'react-hot-toast';
 import TaskHeader from '../components/TaskHeader';
 import PrivateRoute from '../components/PrivateRoute';
+import { Suspense } from 'react';
+import { Spinner } from 'flowbite-react';
 
 export default function App({ Component, pageProps }) {
   TimeAgo.addDefaultLocale(en);
@@ -22,20 +24,30 @@ export default function App({ Component, pageProps }) {
     <Context>
       <QueryClientProvider client={queryClient}>
         
-          <section className="grid lg:grid-cols-8 pt-5 bg-[#ecf0f3] h-screen dark:bg-gray-900">
-            <div className="col-span-2 hidden lg:flex ">
-              <Navbar></Navbar>
-              <ProjectBar></ProjectBar>
-            </div>
-            <div className="col-span-5">
-              <TaskHeader className="hidden"></TaskHeader>
+        <section className="grid lg:grid-cols-8 pt-5 bg-[#ecf0f3] h-screen dark:bg-gray-900">
+          <div className="col-span-2 hidden lg:flex ">
+            <Navbar></Navbar>
+            <ProjectBar></ProjectBar>
+          </div>
+          <div className="col-span-5">
+            <TaskHeader className="hidden"></TaskHeader>
+            <Suspense fallback={loading}>
               <Component {...pageProps} />
-            </div>
-          </section>
-        
+            </Suspense>
+          </div>
+        </section>
+
         <Toaster />
       </QueryClientProvider>
     </Context>
   );
   
+}
+
+export const loading = () => {
+  return (
+    <div className="text-center">
+      <Spinner aria-label="Center-aligned spinner example" />
+    </div>
+  );
 }

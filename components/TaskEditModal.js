@@ -47,7 +47,7 @@ const TaskEditModal = ({ task, modalOpen, setModalOpen, refetch }) => {
       taskDetails,
     };
     axios
-      .put("http://localhost:3000/api/task", task)
+      .put("/api/task", task)
       .then((data) => {
         
         if (data?.status === 200) {

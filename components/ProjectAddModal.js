@@ -15,7 +15,7 @@ const ProjectAddModal = ({ modalOpen, setModalOpen }) => {
           ProjectName,
           email: user.email,
         };
-        axios.post("http://localhost:3000/api/projects", project)
+        axios.post("/api/projects", project)
             .then(res => {
                 console.log(res)
                 if (res.status === 200) {

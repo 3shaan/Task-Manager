@@ -17,13 +17,13 @@ const ProjectBar = () => {
     queryKey: ['project single'],
     queryFn: async () => {
        const res = await fetch(
-         `http://localhost:3000/api/projects?email=eshan@eshan.com`
+         `/api/projects?email=eshan@eshan.com`
        );
       const data = await res.json();
       return data;
     }
   })
-  console.log(project?.map(pro=>console.log(pro.ProjectName)))
+  console.log(project)
 
   if (isLoading) {
     return <div>loading....</div>
@@ -73,20 +73,19 @@ const ProjectBar = () => {
                 <span class="ml-3">office</span>
               </Link>
             </li>
-            { project && 
-              project.map(pro => { 
-                <li key={pro._id}>
+            {project &&
+              project.map((pro) => {
+                return ( <li key={pro._id}>
                   <Link
                     href={`/project/${pro?.ProjectName}`}
                     class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
                     {/* <ImOffice className="text-xl"></ImOffice> */}
                     <span class="ml-3">{pro?.ProjectName}</span>
-                    df
+                    
                   </Link>
-                </li>;
-              })
-            }
+                </li>)
+              })}
           </ul>
         </div>
       </aside>

@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import {
   Button,
@@ -51,7 +52,7 @@ const TaskAddModal = ({ open, setOpen }) => {
       taskUser: user?.email
     };
     axios
-      .post("http://localhost:3000/api/tasks", task)
+      .post("/api/tasks", task)
       .then((data) => {
         console.log(data);
         if (data?.status === 200) {
@@ -69,6 +70,23 @@ const TaskAddModal = ({ open, setOpen }) => {
       });
     // console.log(task)
   };
+
+  // project get 
+    const {
+      data: project,
+      isLoading,
+      isError,
+      error,
+    } = useQuery({
+      queryKey: ["project single"],
+      queryFn: async () => {
+        const res = await fetch(
+          `/api/projects?email=eshan@eshan.com`
+        );
+        const data = await res.json();
+        return data;
+      },
+    });
 
   return (
     <div>
@@ -110,6 +128,12 @@ const TaskAddModal = ({ open, setOpen }) => {
                 </option>
                 <option value="Family">Family</option>
                 <option value="Office">Office</option>
+                {project &&
+                  project.map((pro) => (
+                    <option value={`${pro?.ProjectName}`}>
+                      {pro?.ProjectName}
+                    </option>
+                  ))}
               </select>
             </div>
             <div>

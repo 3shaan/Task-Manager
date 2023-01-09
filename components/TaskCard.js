@@ -28,7 +28,7 @@ const TaskCard = ({ task, refetch }) => {
   const router = useRouter();
   const handleComplete = () => {
     axios
-      .put(`http://localhost:3000/api/tasks?id=${_id}`)
+      .put(`/api/tasks?id=${_id}`)
       // .then(res=>res.json())
       .then((data) => {
         console.log(data);
@@ -57,7 +57,7 @@ const TaskCard = ({ task, refetch }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3000/api/tasks?id=${_id}`)
+          .delete(`/api/tasks?id=${_id}`)
           .then((data) => {
             console.log(data?.data?.msg);
             refetch();

@@ -2,15 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 import { GiAlarmClock } from "react-icons/gi";
 import { FiActivity } from "react-icons/fi";
 import { VscChecklist } from "react-icons/vsc";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { authContext } from "../Context/Context";
+import { Spinner } from "flowbite-react";
 const MainPage = () => {
   const { user } = useContext(authContext);
   const totalTask = useQuery({
     queryKey: ["total task"],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:3000/api/tasks?email=${user?.email}`
+        `/api/tasks?email=${user?.email}`
       );
       const data = await res.json();
       return data;
@@ -19,14 +20,25 @@ const MainPage = () => {
   const completeTask = useQuery({
     queryKey: ["complete task"],
     queryFn: async () => {
-      const res = await fetch(
-        `https://task-mangaer-server-3shaan.vercel.app/complete?email=${user?.email}`
-      );
+      const res = await fetch(`/api/complete?email=${user?.email}`);
       const data = await res.json();
       return data;
     },
   });
   const runningTask = totalTask?.data?.length - completeTask?.data?.length;
+  if (totalTask.isLoading & completeTask.isLoading) {
+    return (
+      <div className="text-center">
+        <Spinner aria-label="Center-aligned spinner example" />
+      </div>
+    );
+  }
+
+    if (user) {
+      totalTask.refetch();
+      completeTask.refetch();
+    }
+    
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 p-5">
@@ -57,7 +69,7 @@ const MainPage = () => {
               Running Task
             </h5>
             <p className="text-xl text-right text-blue-500 font-semibold">
-              {runningTask}
+              { runningTask}
             </p>
             <hr />
             <p className="text-right text-sm text-gray-800 dark:text-gray-100">

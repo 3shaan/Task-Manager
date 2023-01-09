@@ -4,12 +4,12 @@ import Projects from "../../../Schema/Projects";
 dbConnect();
 
 const ProjectFunc = async (req, res) => {
-    const { method, body, query } = req;
+    const { method, body, query , } = req;
     switch (method) {
         case "GET":
             try {
                 const email = query.email;
-                const data = await Projects.find({ email: email }).exec();
+                const data = await Projects.find({ email: email  }).exec();
                 return res.status(200).json(data);
          } catch (error) {
             return res.status(400).json({msg:error.message})

@@ -16,7 +16,7 @@ const Index = () => {
     queryKey: ["all task"],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:3000/api/complete?email=${user?.email}`
+        `/api/complete?email=${user?.email}`
       );
       const data = await res.json();
       return data;
@@ -28,6 +28,9 @@ const Index = () => {
         <Spinner aria-label="Center-aligned spinner example" />
       </div>
     );
+  }
+  if (user) {
+    refetch();
   }
   return (
     <section>

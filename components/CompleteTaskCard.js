@@ -18,7 +18,7 @@ const CompleteTaskCard = ({ task, refetch }) => {
   } = task;
   const handleNotComplete = () => {
     axios
-      .put(`http://localhost:3000/api/complete?id=${_id}`)
+      .put(`/api/complete?id=${_id}`)
       .then((data) => {
         console.log(data);
         if (data.status === 200) {
@@ -43,7 +43,7 @@ const CompleteTaskCard = ({ task, refetch }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3000/api/tasks?id=${_id}`)
+          .delete(`/api/tasks?id=${_id}`)
           .then((data) => {
             console.log(data);
             refetch();
