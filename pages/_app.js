@@ -23,20 +23,19 @@ export default function App({ Component, pageProps }) {
   return (
     <Context>
       <QueryClientProvider client={queryClient}>
-        
-        <section className="grid lg:grid-cols-8 pt-5 bg-[#ecf0f3] h-screen dark:bg-gray-900">
-          <div className="col-span-2 hidden lg:flex ">
-            <Navbar></Navbar>
-            <ProjectBar></ProjectBar>
-          </div>
-          <div className="col-span-5">
-            <TaskHeader className="hidden"></TaskHeader>
-            <Suspense fallback={loading}>
-              <Component {...pageProps} />
-            </Suspense>
-          </div>
-        </section>
+        <Suspense fallback={loading}>
+          <section className="grid lg:grid-cols-8 pt-5 bg-[#ecf0f3] h-screen dark:bg-gray-900">
+            <div className="col-span-2 hidden lg:flex ">
+              <Navbar></Navbar>
+              <ProjectBar></ProjectBar>
+            </div>
+            <div className="col-span-5">
+              <TaskHeader className="hidden"></TaskHeader>
 
+              <Component {...pageProps} />
+            </div>
+          </section>
+        </Suspense>
         <Toaster />
       </QueryClientProvider>
     </Context>

@@ -26,7 +26,11 @@ const ProjectBar = () => {
   console.log(project)
 
   if (isLoading) {
-    return <div>loading....</div>
+    return (
+      <div className="text-center">
+        <Spinner aria-label="Center-aligned spinner example" />
+      </div>
+    );
   }
   return (
     <div>
